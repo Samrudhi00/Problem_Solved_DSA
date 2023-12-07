@@ -1,0 +1,21 @@
+1667 . Fix Names in a Table
+
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name, 1, 1)), LOWER(SUBSTRING(name, 2))) AS name FROM Users ORDER BY user_id;
+
+1527. Patients with a condition
+
+select patient_id, patient_name, conditions
+from patients
+where conditions regexp '\\bDIAB1'
+
+196. Delete Duplicate Emails
+
+DELETE p1 FROM Person p1,
+    Person p2
+WHERE
+    p1.Email = p2.Email AND p1.Id > p2.Id
+
+
+
+
+
