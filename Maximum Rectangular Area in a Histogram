@@ -1,0 +1,38 @@
+long long getMaxArea(long long arr[], int n)
+{
+    vector<long long> left;
+    stack<pair<long long, long long>> sl;
+    for (int i = 0; i < n; i++)
+    {
+        while (sl.size() > 0 && sl.top().first >= arr[i])
+            sl.pop();
+        if (sl.size() == 0)
+            left.push_back(-1);
+        else
+            left.push_back(sl.top().second);
+        sl.push({arr[i], i});
+    }
+
+    vector<long long> right;
+    stack<pair<long long, long long>> sr;
+    for (int i = n - 1; i >= 0; i--)
+    {
+        while (sr.size() > 0 && sr.top().first >= arr[i])
+            sr.pop();
+        if (sr.size() == 0)
+            right.push_back(n);
+        else
+            right.push_back(sr.top().second);
+        sr.push({arr[i], i});
+    }
+    reverse(right.begin(), right.end());
+
+    long long maxArea = 0;
+    for (int i = 0; i < n; i++)
+    {
+        long long temp = arr[i] * (right[i] - left[i] - 1);
+        maxArea = max(maxArea, temp);
+    }
+
+    return maxArea;
+}
