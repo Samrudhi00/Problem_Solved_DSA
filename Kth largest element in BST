@@ -102,18 +102,15 @@ class Solution
         //Your code here
         if (root == NULL) return -1; 
         vector<int> ans;
-        inorder(root, ans);
-        int n = ans.size();
-        if (K <= 0 || K > n)
-          return -1; // Invalid K
+        reverse_inorder(root, ans);
         return ans[K-1];
         
     }
-    void inorder(Node* root, vector<int>& ans) {
+    void reverse_inorder(Node* root, vector<int>& ans) {
         if (root == NULL) return;
-        inorder(root->right, ans);
+        reverse_inorder(root->right, ans);
         ans.push_back(root->data);
-        inorder(root->left, ans);
+        reverse_inorder(root->left, ans);
     }
 };
 
