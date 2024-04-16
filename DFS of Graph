@@ -1,0 +1,69 @@
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+  public:
+    void dfs(int node, unordered_map<int,bool> &visited, unordered_map<int,list<int>> &adj, vector<int> &component){
+        component.push_back(node);
+        visited[node] = true;
+        for(auto i : adj[node]){
+            if(!visited[i]){
+                dfs(i, visited, adj, component);
+            }
+        }
+    }
+
+    // Function to return a list containing the DFS traversal of the graph.
+    vector<int> dfsOfGraph(int V, vector<int> adj[]) {
+        // Prepare adjacency list
+        unordered_map<int, list<int>> adjList;
+        for(int i = 0; i < V; i++){
+            for(auto v : adj[i]){
+                adjList[i].push_back(v);
+            }
+        }
+
+        vector<int> ans;
+        unordered_map<int,bool> visited;
+        for(int i = 0; i < V; i++){
+            if(!visited[i]){
+                vector<int> component;
+                dfs(i, visited, adjList, component);
+                ans.insert(ans.end(), component.begin(), component.end()); 
+            }
+        }
+        return ans;
+    }
+};
+
+
+//{ Driver Code Starts.
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int V, E;
+        cin >> V >> E;
+
+        vector<int> adj[V];
+
+        for (int i = 0; i < E; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        // string s1;
+        // cin>>s1;
+        Solution obj;
+        vector<int> ans = obj.dfsOfGraph(V, adj);
+        for (int i = 0; i < ans.size(); i++) {
+            cout << ans[i] << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
